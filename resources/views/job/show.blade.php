@@ -23,22 +23,26 @@
                 <h4>People Applying To Your Job</h4>
             </div>
             @foreach ($jobapplications as $jobapply)
+            @if ($jobapply->status == 'applied')
             <div class="card-body">
                 <b>Applied User : <a href="/profile/{{ $jobapply->user_id }}/view">{{ $jobapply->user->name }}</a></b>
                 <p class="mt-3">Cover Letter : {{ $jobapply->cover_letter }}</p>
             </div>  
             <div class="card-footer d-flex gap-2">
                 <form method="post" action="/job/interview">
+                    @csrf
                     <input type="hidden" name="user_id" value="{{ $jobapply->user_id }}">
                     <input type="hidden" name="job_id" value="{{ $jobapply->job_id }}">
                     <button class="btn btn-success">Interview</button>
                 </form>
-                <form action="/rejected" method="post">
+                <form action="/job/rejected" method="post">
+                    @csrf
                     <input type="hidden" name="user_id" value="{{ $jobapply->user_id }}">
                     <input type="hidden" name="job_id" value="{{ $jobapply->job_id }}">
                     <button class="btn btn-danger">Rejected</button>
                 </form>
             </div>
+            @endif
             @endforeach
         </div>
     </div>

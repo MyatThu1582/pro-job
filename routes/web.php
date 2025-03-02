@@ -18,13 +18,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/view', [ProfileController::class,'view']);
     });
     // job
-    Route::post('/job/interview', function(){
-        dd("Hello");
-    });
-    Route::prefix('job')->group(function () {
+    Route::prefix('/job')->group(function () {
         Route::post('/', [JobController::class,'index']);
         Route::get('/create', [JobController::class,'create']);
         Route::post('/create', [JobController::class,'store']);
+        Route::post('/interview', [JobController::class,'interview']);
+        Route::post('/rejected', [JobController::class,'rejected']);
     });
     Route::get('logout', [LoginController::class,'logout']);
 });

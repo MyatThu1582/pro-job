@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Application extends Model
 {
+
+    protected $guarded = [];
+    
     public function Job(){
         return $this->belongsTo(Job::class);
     }

@@ -49,12 +49,23 @@ class JobController extends Controller
 
     public function interview(Request $request){
 
-        dd("Accept Page");
-        // $user_id = $request->user_id;
-        // $job_id = $request->job_id;
+        $user_id = $request->user_id;
+        $job_id = $request->job_id;
 
-        // $application = Application::where('user_id',$user_id)->first();
+        $application = Application::where('user_id',$user_id)->first();
+        $application->update(['status' => 'interview']);
 
-        // dd($application);
+        return redirect('/job' . '/' . $job_id . "/show");
+    }
+
+    public function rejected(Request $request){
+
+        $user_id = $request->user_id;
+        $job_id = $request->job_id;
+
+        $application = Application::where('user_id',$user_id)->first();
+        $application->update(['status' => 'rejected']);
+
+        return redirect('/job' . '/' . $job_id . "/show");
     }
 }
