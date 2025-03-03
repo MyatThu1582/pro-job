@@ -23,8 +23,9 @@ class JobController extends Controller
 
         $id = $request->id;
         $job = Job::where('id', $id)->first();
-        $jobapplications = Application::where('job_id', $id)->get();
-        return view('job.show',compact('job', 'jobapplications'));
+        $jobapplications = Application::where('job_id', $id)->where('status','applied')->get();
+        $jobapplied_users = Application::where('user_id', auth()->user()->id)->where('job_id',$id)->first();
+        return view('job.show',compact('job', 'jobapplications', 'jobapplied_users'));
     }
 
     public function create(){
@@ -52,7 +53,7 @@ class JobController extends Controller
         $user_id = $request->user_id;
         $job_id = $request->job_id;
 
-        $application = Application::where('user_id',$user_id)->first();
+        $application = Application::where('user_id',$user_id)->where('job_id',$job_id)->first();
         $application->update(['status' => 'interview']);
 
         return redirect('/job' . '/' . $job_id . "/show");
@@ -63,9 +64,26 @@ class JobController extends Controller
         $user_id = $request->user_id;
         $job_id = $request->job_id;
 
-        $application = Application::where('user_id',$user_id)->first();
+        $application = Application::where('user_id',$user_id)->where('job_id',$job_id)->first();
         $application->update(['status' => 'rejected']);
 
         return redirect('/job' . '/' . $job_id . "/show");
+    }
+
+    public function applypage(Request $request){
+        $job_id = $request->id;
+
+        return view('job.apply', compact('job_id'));
+    }
+    public function apply(Request $request){
+        $credentials = $request->validate([
+            'user_id' => 'required',
+            'job_id' => 'required',
+            'cover_letter' => 'required|min:10',
+        ]);
+        $credentials['status'] = "applied";
+
+        Application::create($credentials);
+        return redirect('/')->with('status','Applied Successful');
     }
 }

@@ -4,9 +4,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ProJob - Job Center</title>
     <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
-    <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
+    {{-- <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script> --}}
     <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
+    <style>
+        .dropdown:hover>.dropdown-menu {
+            display: block;
+            }
+
+            .dropdown>.dropdown-toggle:active {
+            /*Without this, clicking will make it sticky*/
+                pointer-events: none;
+            }
+    </style>
 </head>
 <body>
     <x-navbar />

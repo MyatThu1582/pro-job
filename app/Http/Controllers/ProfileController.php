@@ -32,7 +32,7 @@ class ProfileController extends Controller
 
         $user->update($credential);
 
-        return redirect('/')->with('success','Edited Profile Data Successful');
+        return redirect('/profile')->with('success','Edited Profile Data Successful');
     }
 
     public function view(Request $request){

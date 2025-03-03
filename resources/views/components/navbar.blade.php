@@ -23,7 +23,15 @@
         <div>
           <ul class="navbar-nav gap-2">
             @if (Auth::check())
-              <li class="nav-item"><a class="nav-link" href="/profile">{{ Auth::user()->name }}</a></li>
+            
+            <div class="dropdown">
+              <li class="dropdown-toggle"><a href="/profile" style="text-decoration: none; color: black;">{{ Auth::user()->name }}</a></li>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+              </ul>
+            </div>
+
             @else
               <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
               <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>

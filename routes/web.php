@@ -24,6 +24,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/create', [JobController::class,'store']);
         Route::post('/interview', [JobController::class,'interview']);
         Route::post('/rejected', [JobController::class,'rejected']);
+        Route::get('/{id}/apply', [JobController::class,'applypage']);
+        Route::post('/{id}/apply', [JobController::class,'apply']);
     });
     Route::get('logout', [LoginController::class,'logout']);
 });
